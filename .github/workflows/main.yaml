@@ -1,0 +1,29 @@
+name: node.js CI
+on: [push]
+
+jobs: #<-- statrt the jos encapsulation
+  build: #<-- start the build job encapsulation
+    runs-on: ubuntu-latest
+    steps: # <-- start of step encapsulation with 'build' job
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Setup node.js
+        uses: actions/setup-node@v4
+        with:
+           node-version: 14
+      - name: Install dependencies
+        run: npm ci
+      - name: build
+        run: npm run build
+  test:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout code
+        uses: actions/checkout@v4
+      - name: setup node.js
+        uses: action setup-nodejs@v4
+        with:
+           node-version: 14
+      - name: Install dependencies
+        run: npm test
